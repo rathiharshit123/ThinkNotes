@@ -3,6 +3,7 @@ const util = require("../../utils/util");
 const responseCode = require("../../utils/response-code");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { response } = require("../../utils/util");
 class UserService  {
     static async register(request){
         let responseObject = util.responseFormat();
@@ -53,6 +54,7 @@ class UserService  {
 
     static async createToken( userId, email) {
         try {
+            userId = userId.toString();
             let tokenValue = {
                 userId,
                 email,
@@ -62,6 +64,33 @@ class UserService  {
             return tokenValue;
         } catch (error) {
             throw error;
+        }
+    }
+
+    static async login(requestObj){
+        let responseObject = util.responseFormat();
+        try {
+            let {email,password} = requestObj;
+            let checkUserExist = await userModel.findOne({email});
+            if(!checkUserExist){
+                responseObject = util.response(responseCode.INVALID_CREDENTIALS);
+                return response;
+            }
+
+            let comparePassword = await bcrypt.compare(password,checkUserExist.password);
+
+            if(!comparePassword){
+                responseObject = util.response(responseCode.INVALID_CREDENTIALS);
+                return response;
+            }
+            let token = await this.createToken(checkUserExist._id,checkUserExist.email)
+            responseObject.data = token;
+            return responseObject;
+        } catch (error) {
+            console.log({
+                error,
+                msg: "error on login"
+            })
         }
     }
 }
