@@ -26,7 +26,23 @@ const userLoginController = async function(req,res){
     } catch (error) {
         console.log({
             error,
-            msg: "error on signUp"
+            msg: "error on login"
+        })
+        responseObject = util.response(responseCode.SOME_INTERNAL_ERROR);
+    }
+    return res.json(responseObject);
+}
+
+const getUserController = async function(req,res){
+    let responseObject = util.responseFormat();
+    try {
+        let response = await UserService.getUserDetails(req.query);
+        console.log(response,"response")
+        responseObject = util.response(response.code,response.data);
+    } catch (error) {
+        console.log({
+            error,
+            msg: "error on getting user Details"
         })
         responseObject = util.response(responseCode.SOME_INTERNAL_ERROR);
     }
@@ -35,5 +51,6 @@ const userLoginController = async function(req,res){
 
 module.exports = {
     userRegisterController,
-    userLoginController
+    userLoginController,
+    getUserController
 }

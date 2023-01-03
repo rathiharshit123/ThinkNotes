@@ -91,6 +91,22 @@ class UserService  {
                 error,
                 msg: "error on login"
             })
+            throw error;
+        }
+    }
+
+    static async getUserDetails(requestObj){
+        let responseObject = util.responseFormat();
+        try {
+            const userDetails = await userModel.findById(requestObj.userId).select("-password");
+            responseObject.data= userDetails;
+            return responseObject;
+        } catch (error) {
+            console.log({
+                error,
+                msg: "error on fetching userDetails"
+            })
+            throw error;
         }
     }
 }
