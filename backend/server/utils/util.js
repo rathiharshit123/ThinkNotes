@@ -11,7 +11,7 @@ module.exports = class utils {
         };
       }
 
-      static response(code, data, message) {
+      static response(code, data={}, message) {
         let returnObj = {
           code: code,
         };
