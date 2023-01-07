@@ -1,94 +1,39 @@
 import noteContext from "./noteContext";
 import { useState } from "react";
-
+import util from '../../utils/utils'
+import constants from '../../utils/constants'
 const NoteState = (props)=>{
 
-    let Initialnotes = [
-        {
-            "_id": "63b49900482f94681d4ee8c01",
-            "userId": "63b48873beb6938c80361b85",
-            "title": "My notes",
-            "description": "This is my first notes",
-            "tag": "general",
-            "createdAt": "2023-01-03T21:07:12.070Z",
-            "updatedAt": "2023-01-03T21:07:12.070Z",
-            "__v": 0
-        },
-        {
-            "_id": "63b49ece2a36be1fc6ea77018",
-            "userId": "63b48873beb6938c80361b85",
-            "title": "sexy Title Bro",
-            "description": "This is my nth notes",
-            "tag": "general",
-            "createdAt": "2023-01-03T21:31:58.172Z",
-            "updatedAt": "2023-01-03T21:34:39.748Z",
-            "__v": 0
-        },
-        {
-            "_id": "63b49900482f94681d4eec601",
-            "userId": "63b48873beb6938c80361b85",
-            "title": "My notes",
-            "description": "This is my first notes",
-            "tag": "general",
-            "createdAt": "2023-01-03T21:07:12.070Z",
-            "updatedAt": "2023-01-03T21:07:12.070Z",
-            "__v": 0
-        },
-        {
-            "_id": "63b49ece2a36be1fc6ea703318",
-            "userId": "63b48873beb6938c80361b85",
-            "title": "sexy Title Bro",
-            "description": "This is my nth notes",
-            "tag": "general",
-            "createdAt": "2023-01-03T21:31:58.172Z",
-            "updatedAt": "2023-01-03T21:34:39.748Z",
-            "__v": 0
-        },
-        {
-            "_id": "63b49900482f94681d4eec32113201",
-            "userId": "63b48873beb6938c80361b85",
-            "title": "My notes",
-            "description": "This is my first notes",
-            "tag": "general",
-            "createdAt": "2023-01-03T21:07:12.070Z",
-            "updatedAt": "2023-01-03T21:07:12.070Z",
-            "__v": 0
-        },
-        {
-            "_id": "63b49ece2a36be1fc6ea7021318",
-            "userId": "63b48873beb6938c80361b85",
-            "title": "sexy Title Bro",
-            "description": "This is my nth notes",
-            "tag": "general",
-            "createdAt": "2023-01-03T21:31:58.172Z",
-            "updatedAt": "2023-01-03T21:34:39.748Z",
-            "__v": 0
-        }
-    ]
-    const [notes, setnotes] = useState(Initialnotes)
-    const addNote = (title,description,tag)=>{
-        console.log("ADDING NEW NOTE")
-        let note= {
-            "_id": "63b49ece2a36be1fc6213ea7021318",
-            "userId": "63b48873beb6938c80361b85",
-            "title": "NAYA Title Bro",
-            "description": "This is my new notes",
-            "tag": "general",
-            "createdAt": "2023-01-03T21:31:58.172Z",
-            "updatedAt": "2023-01-03T21:34:39.748Z",
-            "__v": 0
-        }
-        setnotes(notes.concat(note));
+    
+    const [notes, setnotes] = useState([])
+    const getNotes = async () =>{
+        console.log('getNotes,Called')
+        let response = await util.get(constants.GET_ALL_NOTES_URL);
+        setnotes(response.data.notes);
     }
-    const deleteNote = (id)=>{
-
+    
+    const addNote = async (title,description,tag)=>{
+        let addNoteResponse = await util.post(constants.ADD_NOTE_URL,{title,description,tag});
+        let addedNoteDetails = addNoteResponse.data;
+        setnotes(notes.concat(addedNoteDetails));
     }
-    const editNote = ()=>{
-
+    const deleteNote = async (id)=>{
+        await util.delete(constants.DELETE_NOTE_URL+`/${id}`,)
+        const newNotes = notes.filter((note)=>{return note._id!==id});
+        setnotes(newNotes)
+    }
+    const editNote = (id,title,description,tag)=>{
+        notes.forEach(element => {
+            if(element._id===id){
+                element.title = title;
+                element.description=description;
+                element.tag=tag;
+            }
+        });
     }    
 
     return (
-    <noteContext.Provider value={{notes,addNote,editNote,deleteNote}}>
+    <noteContext.Provider value={{notes,addNote,editNote,deleteNote,getNotes}}>
         {props.children}
     </noteContext.Provider>
     )
