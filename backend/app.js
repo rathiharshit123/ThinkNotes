@@ -1,9 +1,13 @@
 const express = require("express");
 const chalk= require("chalk")
-const app = express();
-app.use(express.json());
+const cors = require("cors");
 
-const port = 3000;
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+const port = 5000;
 const route= require("./server/routes");
 
 
