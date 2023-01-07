@@ -7,29 +7,39 @@ const NoteState = (props)=>{
     
     const [notes, setnotes] = useState([])
     const getNotes = async () =>{
-        console.log('getNotes,Called')
         let response = await util.get(constants.GET_ALL_NOTES_URL);
-        setnotes(response.data.notes);
+        if(response && response.data.notes){
+            setnotes(response.data.notes);
+        }
     }
     
     const addNote = async (title,description,tag)=>{
         let addNoteResponse = await util.post(constants.ADD_NOTE_URL,{title,description,tag});
-        let addedNoteDetails = addNoteResponse.data;
-        setnotes(notes.concat(addedNoteDetails));
+        if(addNoteResponse && addNoteResponse.data){
+            let addedNoteDetails = addNoteResponse.data;
+            setnotes(notes.concat(addedNoteDetails));
+        }
     }
     const deleteNote = async (id)=>{
-        await util.delete(constants.DELETE_NOTE_URL+`/${id}`,)
-        const newNotes = notes.filter((note)=>{return note._id!==id});
-        setnotes(newNotes)
+        let deleteNoteresponse = await util.delete(constants.DELETE_NOTE_URL+`/${id}`,)
+        if(deleteNoteresponse && deleteNoteresponse.data){
+            const newNotes = notes.filter((note)=>{return note._id!==id});
+            setnotes(newNotes)
+        }
     }
-    const editNote = (id,title,description,tag)=>{
-        notes.forEach(element => {
-            if(element._id===id){
-                element.title = title;
-                element.description=description;
-                element.tag=tag;
-            }
-        });
+    const editNote = async (id,title,description,tag)=>{
+        let editNoteResponse = await util.put(constants.EDIT_NOTE_URL+`/${id}`,{title,description,tag})
+        if(editNoteResponse && editNoteResponse.data){
+            let newNotes = JSON.parse(JSON.stringify(notes));
+            newNotes.forEach(element => {
+                if(element._id===id){
+                    element.title = editNoteResponse.data.title;
+                    element.description=editNoteResponse.data.description;
+                    element.tag=editNoteResponse.data.tag;
+                }
+            });
+            setnotes(newNotes);
+        }
     }    
 
     return (
