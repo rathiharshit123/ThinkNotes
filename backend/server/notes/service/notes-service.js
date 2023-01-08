@@ -48,8 +48,6 @@ class NotesService {
                 responseObject.code = responseCode.NOTE_NOT_FOUND;
                 return responseObject;
             }
-            console.log(note,"NOTE")
-
             if(note.userId.toString()!=userId){
                 responseObject.code = responseCode.AUTHENTICATION_FAILED;
                 return responseObject;
