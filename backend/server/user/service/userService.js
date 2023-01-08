@@ -74,14 +74,14 @@ class UserService  {
             let checkUserExist = await userModel.findOne({email});
             if(!checkUserExist){
                 responseObject = util.response(responseCode.INVALID_CREDENTIALS);
-                return response;
+                return responseObject;
             }
 
             let comparePassword = await bcrypt.compare(password,checkUserExist.password);
 
             if(!comparePassword){
                 responseObject = util.response(responseCode.INVALID_CREDENTIALS);
-                return response;
+                return responseObject;
             }
             let token = await this.createToken(checkUserExist._id,checkUserExist.email)
             responseObject.data = token;

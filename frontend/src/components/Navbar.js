@@ -19,8 +19,13 @@ export default function Navbar() {
           <Link className= {`nav-link ${location.pathname==="/about"?"active":""}`} to="/about">About</Link>
         </li>
       </ul>
+      <form className="d-flex">
+        <Link role='button' to='/login' className="btn btn-primary mx-1">Login</Link>
+        <Link role='button' to='/signup' className="btn btn-primary mx-1">SignUp</Link>
+      </form>
     </div>
   </div>
+
 </nav>
   )
 }

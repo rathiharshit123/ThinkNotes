@@ -1,9 +1,25 @@
-import React from "react";
+import React from 'react'
 
-export const Alert = (props) => {
+export default function Alert(props) {
+
+  const change =(word)=>{
+    if(word==='danger'){
+      word = "Error"
+    }
+    else if(word==='success'){
+      word= 'Success'
+    }
+    return word;
+  }
+
   return (
-    <div className="alert alert-primary" role="alert">
-      {props.message}
+    <div style={{height: '50px'}}>
+    {props.alert && 
+    <div className={`alert alert-${props.alert.type} alert-dismissible fade show`} role="alert">
+        <strong>{change(props.alert.type)}: </strong> {props.alert.message}
+        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>}
+
     </div>
-  );
-};
+  )
+}
