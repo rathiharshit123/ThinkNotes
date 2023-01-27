@@ -20,8 +20,8 @@ export const Login = (props) => {
                 password: ''
             })
             localStorage.setItem('token',response.data.token);
-            navigate('/')
             props.showAlert('Login Successfull ','success')
+            navigate('/')
 
         }
         else{
@@ -34,6 +34,7 @@ export const Login = (props) => {
     }
   return (
     <div className="container my-3">
+    <h2>Login To Continue</h2>
         <form  onSubmit={handleSubmit}>
             <div className="mb-3">
                 <label htmlFor="email" className="form-label">Email address</label>

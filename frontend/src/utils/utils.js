@@ -10,7 +10,7 @@ module.exports = class utils{
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           headers: {
             'Content-Type': 'application/json',
-            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2I0ODg3M2JlYjY5MzhjODAzNjFiODUiLCJlbWFpbCI6InJhdGhpaGFyc2hpdDEyMzNAZ21haWwuY29tIiwiaWF0IjoxNjczMDg2MDk4fQ.ROTTHOVI9qo7pvOe9ALxIotq6T9EZBVd1Dr2iRSa8U0'
+            token: localStorage.getItem('token')
             // 'Content-Type': 'application/x-www-form-urlencoded',
           },
          body: JSON.stringify(data) 
@@ -25,7 +25,7 @@ module.exports = class utils{
           headers: {
             'Content-Type': 'application/json',
             // 'Content-Type': 'application/x-www-form-urlencoded',
-            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2I0ODg3M2JlYjY5MzhjODAzNjFiODUiLCJlbWFpbCI6InJhdGhpaGFyc2hpdDEyMzNAZ21haWwuY29tIiwiaWF0IjoxNjczMDg2MDk4fQ.ROTTHOVI9qo7pvOe9ALxIotq6T9EZBVd1Dr2iRSa8U0'
+            'token': localStorage.getItem('token')
           },
 
          
@@ -40,7 +40,7 @@ module.exports = class utils{
           headers: {
             'Content-Type': 'application/json',
             // 'Content-Type': 'application/x-www-form-urlencoded',
-            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2I0ODg3M2JlYjY5MzhjODAzNjFiODUiLCJlbWFpbCI6InJhdGhpaGFyc2hpdDEyMzNAZ21haWwuY29tIiwiaWF0IjoxNjczMDg2MDk4fQ.ROTTHOVI9qo7pvOe9ALxIotq6T9EZBVd1Dr2iRSa8U0'
+            'token': localStorage.getItem('token')
           },
 
          
@@ -54,7 +54,7 @@ module.exports = class utils{
           method: 'PUT', // *GET, POST, PUT, DELETE, etc.
           headers: {
             'Content-Type': 'application/json',
-            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2I0ODg3M2JlYjY5MzhjODAzNjFiODUiLCJlbWFpbCI6InJhdGhpaGFyc2hpdDEyMzNAZ21haWwuY29tIiwiaWF0IjoxNjczMDg2MDk4fQ.ROTTHOVI9qo7pvOe9ALxIotq6T9EZBVd1Dr2iRSa8U0'
+            token: localStorage.getItem('token')
             // 'Content-Type': 'application/x-www-form-urlencoded',
           },
          body: JSON.stringify(data) 

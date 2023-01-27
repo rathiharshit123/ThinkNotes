@@ -36,6 +36,7 @@ export const Signup = (props) => {
     }
   return (
     <div className='container my-3'>
+    <h2>Create a new Account</h2>
         <form onSubmit={onSubmit}>
             <div className="mb-3">
                 <label htmlFor="name" className="form-label">Name</label>

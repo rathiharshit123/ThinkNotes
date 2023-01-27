@@ -9,6 +9,9 @@ export default function Alert(props) {
     else if(word==='success'){
       word= 'Success'
     }
+    else if(word==='warning'){
+      word='Warning'
+    }
     return word;
   }
 
